@@ -1,0 +1,23 @@
+1) Que inciso le toco y en qué manera cree que eso mejorara su programa:
+
+Me toco el inciso3 por hacer todos los puntos, creo que mi programa mejorara debido a esto ya que aprendere a organizar 
+mas mis programas porque tengo que comentar mi codigo y a hacer interfacez mas amigables.
+
+2) ¿Cuál es el tema en el que más debilidad siente y por qué? (únicamente son válidos
+los temas que aparecen junto a su número de cuenta en la tabla).
+
+el tema en el que mas debilidad siento y el que aplicare seran las tablas ya que su forma de manejar es muy distinta a las 
+demas. 
+
+3) Explicación de como planea incluir ese tema en el que siente debilidad dentro del
+laboratorio que se le fue asignado
+
+Lo aplicare para listar los tipos o informacion de objetos del programa.
+
+4) Un comentario hacia su instructora hablando sinceramente sobre: Que cosas le
+gustaron y no le gustaron sobre los laboratorios que ella le asigno y que haría para
+mejorar la calidad de los mismo (por ejemplo: aumento en lacomplejidad/dificultad,
+reducción de extensión en los labs, etc)
+
+Sinceramente pienso que los labs son largos y complejos pero como hemos aprendido cada vez mejores tecnicas para
+hacer CRUD cada vez es mas facil y menos tedioso.
