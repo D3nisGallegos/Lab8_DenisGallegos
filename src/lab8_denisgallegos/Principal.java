@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Principal extends javax.swing.JFrame {
@@ -109,7 +110,18 @@ public class Principal extends javax.swing.JFrame {
         return Integer.parseInt(cuenta);
     }//Fin del metodo generar cuenta.
     
-    
+    public void llenartablamaestros(){
+        DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+        for (int j = 0; j < m.getRowCount();j++){
+            m.removeRow(j);
+        }    
+        for (int c =0 ; c < maestros.size();c++){
+            Maestros objeto = (Maestros) maestros.get(c);
+            Object[] row = {objeto.getNombre(), objeto.getApellido(), objeto.getEdad(), objeto.getSalario()};
+            m.addRow(row);
+        }
+        jTable1.setModel(m);
+    }
 
     
     @SuppressWarnings("unchecked")
@@ -162,6 +174,8 @@ public class Principal extends javax.swing.JFrame {
         jList5 = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         panel1 = new java.awt.Panel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -266,6 +280,12 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -296,7 +316,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 130, 1));
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(18, 18, 130, 1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
 
@@ -312,7 +332,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Maestros: ");
+        jLabel7.setText("Todos los maestros:");
 
         jButton5.setText("Modificar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -332,34 +352,29 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                                                .addComponent(jTextField2))
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                        .addComponent(jTextField2))
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(197, 197, 197))
+                .addGap(283, 303, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,13 +391,13 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel4)
-                        .addGap(81, 81, 81)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -464,10 +479,20 @@ public class Principal extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre:", "Apellido:", "Edad: ", "Salario:"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
+
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Tabla de maestros:");
+
+        jButton2.setText("Asignar clase a maestro");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);
@@ -500,9 +525,12 @@ public class Principal extends javax.swing.JFrame {
                                     .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jComboBox6, 0, 130, Short.MAX_VALUE)
                                         .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(205, 205, 205)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115))
+                        .addGap(186, 186, 186)
+                        .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -518,10 +546,12 @@ public class Principal extends javax.swing.JFrame {
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel21)
+                .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel28)
                             .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -536,14 +566,13 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel31)
-                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel32)
-                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panel3Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
@@ -552,7 +581,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jLabel33)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Menu clases", panel3);
@@ -845,9 +874,9 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String n = jTextField3.getText(); 
         boolean v = validar(n);
-        if (v == true){
-            String nombre = jTextField1.getText();
-            String apellido = jTextField2.getText();
+        String nombre = jTextField1.getText();
+        String apellido = jTextField2.getText();
+        if (v == true && (nombre.isEmpty() == false && apellido.isEmpty() == false && n.isEmpty() == false)){           
             int edad = Integer.parseInt(jSpinner1.getValue().toString());
             double salario = Double.parseDouble(n);
             String genero = jComboBox1.getSelectedItem()+ "";
@@ -861,11 +890,9 @@ public class Principal extends javax.swing.JFrame {
             jTextField2.setText("");
             jTextField3.setText("");
             jComboBox1.setSelectedIndex(0);
-        }
-        
-        
-        
-         
+        }else {
+            JOptionPane.showMessageDialog(null, "Entradas no validas o campos vacios.");
+        }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -891,6 +918,8 @@ public class Principal extends javax.swing.JFrame {
             jTextField3.setText(objeto2.getSalario()+"");
             jSpinner1.setValue(objeto2.getEdad());
             jComboBox1.setSelectedItem(objeto2.getGenero());
+        }else {
+            JOptionPane.showMessageDialog(null, "Seleccione un maestro.");
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -904,9 +933,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         if (jList1.getSelectedIndex() >= 0){
+            ArrayList temp = maestros; 
+            for (int c = 0; c < maestros.size();c++){
+                Maestros objeto = (Maestros) maestros.get(c);
+                if (objeto.toStringMaestros().equals(jList1.getSelectedValue())){
+                    temp.remove(objeto);
+                }
+            }
+            maestros = temp; 
             DefaultListModel modelo = (DefaultListModel) jList1.getModel();
             modelo.removeElementAt(jList1.getSelectedIndex());
             jList1.setModel(modelo);
+        }else {
+            JOptionPane.showMessageDialog(null, "Seleccione un maestro.");
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -929,6 +968,8 @@ public class Principal extends javax.swing.JFrame {
             jSpinner4.setValue(objeto2.getEdificio());
             jSpinner4.setValue(objeto2.getSalon());
             jComboBox6.setSelectedItem(objeto2.getAire());
+        }else {
+            JOptionPane.showMessageDialog(null, "Seleccione una clase.");
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -937,6 +978,8 @@ public class Principal extends javax.swing.JFrame {
             DefaultListModel modelo = (DefaultListModel) jList5.getModel();
             modelo.removeElementAt(jList5.getSelectedIndex());
             jList5.setModel(modelo);
+        }else {
+            JOptionPane.showMessageDialog(null, "Seleccione una clase.");
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
@@ -1010,36 +1053,42 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       String n = jTextField3.getText(); 
+        String n = jTextField3.getText(); 
         boolean v = validar(n);
-        if (v == true){       
-            String nombre = jTextField1.getText();
-            String apellido = jTextField2.getText();
-            int edad = Integer.parseInt(jSpinner1.getValue().toString());
-            double salario = Double.parseDouble(n);
-            String genero = jComboBox1.getSelectedItem()+ "";
-            Maestros maestro = new Maestros(salario, nombre, apellido, edad, genero);
-            for (int c = 0; c < maestros.size();c++){
-                Maestros objeto = (Maestros) maestros.get(c);
-                if (objeto.toStringMaestros().equals(jList1.getSelectedValue())){
-                    maestros.set(c, maestro);
-                    indice = c; 
+        String nombre = jTextField1.getText();
+        String apellido = jTextField2.getText();
+        if (jList1.getSelectedIndex() >=0){
+            if (v == true && (nombre.isEmpty() == false && apellido.isEmpty() == false && n.isEmpty() == false)){        
+                int edad = Integer.parseInt(jSpinner1.getValue().toString());
+                double salario = Double.parseDouble(n);
+                String genero = jComboBox1.getSelectedItem()+ "";
+                Maestros maestro = new Maestros(salario, nombre, apellido, edad, genero);
+                for (int c = 0; c < maestros.size();c++){
+                    Maestros objeto = (Maestros) maestros.get(c);
+                    if (objeto.toStringMaestros().equals(jList1.getSelectedValue())){
+                        maestros.set(c, maestro);
+                        indice = c; 
+                    }
                 }
+                DefaultListModel modelo = (DefaultListModel) jList1.getModel();
+                modelo.setElementAt(maestro.toStringMaestros(), indice);
+                jList1.setModel(modelo);
+                jTextField1.setText("");
+                jTextField2.setText("");
+                jTextField3.setText("");
+                jComboBox1.setSelectedIndex(0);  
+            }else {
+                JOptionPane.showMessageDialog(null, "Entradas no validas o campos vacios.");
             }
-            DefaultListModel modelo = (DefaultListModel) jList1.getModel();
-            modelo.setElementAt(maestro.toStringMaestros(), indice);
-            jList1.setModel(modelo);
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jComboBox1.setSelectedIndex(0);
-        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Error. Seleccione un maestro.");
+        } 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
             String nombre = jTextField10.getText();
             String seccion = jTextField13.getText();
-            if (nombre.isEmpty() || seccion.isEmpty()){
+            if (nombre.isEmpty() == false && seccion.isEmpty()== false){
                 String aire = jComboBox6.getSelectedItem() + "";
                 int edificio = Integer.parseInt(jSpinner4.getValue()+"");
                 int salon = Integer.parseInt(jSpinner3.getValue()+"");
@@ -1062,29 +1111,33 @@ public class Principal extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         String nombre = jTextField10.getText();
         String seccion = jTextField13.getText();
-        if (nombre.isEmpty() || seccion.isEmpty()){           
-            String aire = jComboBox6.getSelectedItem() + "";
-            int edificio = Integer.parseInt(jSpinner4.getValue()+"");
-            int salon = Integer.parseInt(jSpinner3.getValue()+"");
-            Clases clase = new Clases(nombre, seccion, edificio, salon, aire);
-            for (int c = 0; c < clases.size();c++){
-               Clases objeto = (Clases) clases.get(c);
-               if (objeto.toStringClases().equals(jList5.getSelectedValue())){
-                   clases.set(c, clase);
-                   indiceclases = c; 
-               }
+        if (jList5.getSelectedIndex() >= 0){
+            if (nombre.isEmpty() == false && seccion.isEmpty()== false){           
+                String aire = jComboBox6.getSelectedItem() + "";
+                int edificio = Integer.parseInt(jSpinner4.getValue()+"");
+                int salon = Integer.parseInt(jSpinner3.getValue()+"");
+                Clases clase = new Clases(nombre, seccion, edificio, salon, aire);
+                for (int c = 0; c < clases.size();c++){
+                   Clases objeto = (Clases) clases.get(c);
+                   if (objeto.toStringClases().equals(jList5.getSelectedValue())){
+                       clases.set(c, clase);
+                       indiceclases = c; 
+                   }
+                }
+                DefaultListModel modelo = (DefaultListModel) jList5.getModel();
+                modelo.setElementAt(clase.toStringClases(), indiceclases);
+                jList5.setModel(modelo);
+                jTextField10.setText("");
+                jTextField13.setText("");
+                jSpinner4.setValue(0);
+                jSpinner3.setValue(0);
+                jComboBox6.setSelectedIndex(0);
+            }else {
+               JOptionPane.showMessageDialog(null, "Error, campos vacios.");
             }
-            DefaultListModel modelo = (DefaultListModel) jList5.getModel();
-            modelo.setElementAt(clase.toStringClases(), indiceclases);
-            jList5.setModel(modelo);
-            jTextField10.setText("");
-            jTextField13.setText("");
-            jSpinner4.setValue(0);
-            jSpinner3.setValue(0);
-            jComboBox6.setSelectedIndex(0);
         }else {
-                JOptionPane.showMessageDialog(null, "Error, campos vacios.");
-            }
+            JOptionPane.showMessageDialog(null, "Error, seleccione una clase.");
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jList5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList5MouseClicked
@@ -1094,6 +1147,18 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jList5MouseClicked
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        llenartablamaestros();
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jList5.getSelectedIndex() >= 0 && jTable1.getSelectedRow() >= 0){
+            
+        }else {
+            JOptionPane.showMessageDialog(null, "Error, seleccione una clase y un maestro.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     public static void main(String args[]) {
@@ -1129,6 +1194,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1165,6 +1231,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList3;
     private javax.swing.JList<String> jList4;
