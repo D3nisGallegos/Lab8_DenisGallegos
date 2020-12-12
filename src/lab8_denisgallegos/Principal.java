@@ -1353,7 +1353,23 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jList3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+        if (jList3.getSelectedIndex() >= 0 && jTable4.getSelectedRow() >= 0){
+            for (int c = 0;c < estudiantes.size();c++){
+                Estudiantes objeto = (Estudiantes) estudiantes.get(c);
+                if (objeto.toStringEstudiantes2().equals(jList3.getSelectedValue())){
+                    for (int j = 0; j < carrera.size();j++){
+                        Carreras ca = (Carreras) carrera.get(j);
+                        if (ca.getJefe().equals(jTable4.getValueAt(jTable4.getSelectedRow(), 2))
+                                && ca.getNombre().equals(jTable4.getValueAt(jTable4.getSelectedRow(), 1))){
+                            objeto.setCarrera(ca);
+                        }
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Carrera asignada.");
+        }else {
+            JOptionPane.showMessageDialog(null, "Seleccione una carrera y un estudiante.");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
