@@ -13,11 +13,12 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class Principal extends javax.swing.JFrame {
-
     
+
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
     
     ArrayList clasesguardadas = new ArrayList();
@@ -110,13 +111,13 @@ public class Principal extends javax.swing.JFrame {
         return Integer.parseInt(cuenta);
     }//Fin del metodo generar cuenta.
     
-    public void llenartablamaestros(){
+    public void llenartablamaestros(){      
         DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
         for (int j = 0; j < m.getRowCount();j++){
             m.removeRow(j);
-        }    
-        for (int c =0 ; c < maestros.size();c++){
-            Maestros objeto = (Maestros) maestros.get(c);
+        }
+        for (int c = 0 ; c < maestros.size();c++){
+            Maestros objeto = (Maestros) maestros.get(c);           
             Object[] row = {objeto.getNombre(), objeto.getApellido(), objeto.getEdad(), objeto.getSalario()};
             m.addRow(row);
         }
@@ -283,6 +284,9 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MousePressed(evt);
             }
         });
 
@@ -473,10 +477,7 @@ public class Principal extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre:", "Apellido:", "Edad: ", "Salario:"
@@ -892,7 +893,8 @@ public class Principal extends javax.swing.JFrame {
             jComboBox1.setSelectedIndex(0);
         }else {
             JOptionPane.showMessageDialog(null, "Entradas no validas o campos vacios.");
-        }  
+        }
+        llenartablamaestros();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
@@ -921,6 +923,7 @@ public class Principal extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Seleccione un maestro.");
         }
+        llenartablamaestros();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jPopupMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu1MouseClicked
@@ -947,6 +950,7 @@ public class Principal extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(null, "Seleccione un maestro.");
         }
+        llenartablamaestros();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jPopupMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu2MouseClicked
@@ -970,7 +974,7 @@ public class Principal extends javax.swing.JFrame {
             jComboBox6.setSelectedItem(objeto2.getAire());
         }else {
             JOptionPane.showMessageDialog(null, "Seleccione una clase.");
-        }
+        }       
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -1083,6 +1087,7 @@ public class Principal extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Error. Seleccione un maestro.");
         } 
+        llenartablamaestros();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1149,16 +1154,37 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jList5MouseClicked
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        llenartablamaestros();
+        
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jList5.getSelectedIndex() >= 0 && jTable1.getSelectedRow() >= 0){
-            
+            for(int c = 0; c < clases.size();c++){
+                Clases objeto = (Clases) clases.get(c);
+                if (objeto.toStringClases().equals(jList5.getSelectedValue())){
+                    for (int j = 0; j < maestros.size();j++){
+                        Maestros maestro = (Maestros) maestros.get(j);
+                        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+                        String n = (String)modelo.getValueAt(jTable1.getSelectedRow(), 0);
+                        String a = (String) modelo.getValueAt(jTable1.getSelectedRow(), 1);
+                        int ed = (int) modelo.getValueAt(jTable1.getSelectedRow(), 2);
+                        double sal = (double) modelo.getValueAt(jTable1.getSelectedRow(), 3);
+                        System.out.println(n);
+                        if (maestro.getNombre().equals(n) && maestro.getApellido().equals(a) && maestro.getEdad() == ed
+                                && maestro.getSalario() == sal){
+                            maestro.getClases().add(objeto);
+                        }
+                    }
+                }
+            }
         }else {
             JOptionPane.showMessageDialog(null, "Error, seleccione una clase y un maestro.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
+        
+    }//GEN-LAST:event_jTabbedPane1MousePressed
 
     
     public static void main(String args[]) {
